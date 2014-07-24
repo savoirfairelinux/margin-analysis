@@ -225,7 +225,16 @@ class product_product(orm.Model):
         return computed
 
     def _cost_price(self, cr, uid, ids, field_name, arg, context=None):
-        return self._compute_purchase_price(cr, uid, ids, context=context)
+        status = self._compute_purchase_price(cr, uid, ids, context=context)
+        for i_id, cost_price in status.items():
+            product = self.browse(cr, uid, i_id, context=context)
+            update_price = product.always_update_standard_price
+            standard_price = product.standard_price
+            if not update_price or standard_price == cost_price:
+                continue
+            vals = {'standard_price': cost_price}
+            self.write(cr, uid, i_id, vals, context=context)
+        return status
 
     def _get_bom_product(self, cr, uid, ids, context=None):
         """ return ids of modified product and ids of all product that use
@@ -304,7 +313,7 @@ class product_product(orm.Model):
         res = prod_obj._get_product_from_template(cr, uid, ids, context=context)
         return res
 
-    # Trigger on product.product is set to None, otherwise do not trigg
+    # Trigger on product.product is set to None, otherwise do not trig
     # on product creation !
     _cost_price_triggers = {
         'product.product': (_get_bom_product, None, 5),
@@ -323,6 +332,10 @@ class product_product(orm.Model):
     }
 
     _columns = {
+        'always_update_standard_price': fields.boolean(
+            "Always update standard price",
+            help="When checked the cost price is copied to the standard price"
+                 "when updated."),
         'cost_price': fields.function(
             _cost_price,
             store=_cost_price_triggers,
@@ -331,5 +344,5 @@ class product_product(orm.Model):
             help="The cost price is the standard price or, if the "
                  "product has a bom, the sum of all standard price "
                  "of its components. it take also care of the bom "
-                 "costing like cost per cycle.")
+                 "costing like cost per cycle."),
     }

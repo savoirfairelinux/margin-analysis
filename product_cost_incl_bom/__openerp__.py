@@ -57,6 +57,9 @@ such a hierarchy of products:
 Changing the price of Wood leg will update the price of Table A, Table B, Red wood leg, 
 Table & Chair products.
 
+On the product form, a new checkbox has been added "Always update standard price" : when checked the cost price is copied to the standard price when updated.
+This is particularly usefull when using real-time inventory valuation since this feature uses the standard price to create the accounting entries.
+
 Contributors
 ------------
 
@@ -64,10 +67,13 @@ Contributors
 * Yannick Vaucher <yannick.vaucher@camptocamp.com>
 * Guewen Baconnier <guewen.baconnier@camptocamp.com>
 * Joël Grand-Guillaume <joel.grand-guillaume@camptocamp.com>
+* Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
 
 """,
  'website': 'http://www.camptocamp.com/',
- 'data': [],
+ 'data': [
+     'product_view.xml',
+ ],
  'demo': [],
  'test': [
     'test/cost_price_update.yml',
