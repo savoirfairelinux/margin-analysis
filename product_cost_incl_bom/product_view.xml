@@ -6,12 +6,11 @@
       <field name="name">product.product_cost_incl_costs_bom.view.form</field>
       <field name="type">form</field>
       <field name="model">product.product</field>
-      <field name="priority" eval="800"/>
       <field name="inherit_id" ref="product.product_normal_form_view"/>
       <field name="arch" type="xml">
-        <field name="standard_price" position="after">
+        <xpath expr="//field[@name='standard_price']/.." position="after">
           <field name="always_update_standard_price"/>
-        </field>
+        </xpath>
       </field>
     </record>
 
