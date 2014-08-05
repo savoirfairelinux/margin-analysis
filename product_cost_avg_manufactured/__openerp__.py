@@ -51,9 +51,6 @@ Contributors
     'data': [
     ],
     'test': [
-        'test/price_historization.yml',
-        'test/cost_price_update.yml',
-        'test/price_controlling_multicompany.yml',
     ],
     'installable': True,
     'auto_install': True,
