@@ -36,9 +36,7 @@ This module allows computing the standard price of products based on their
 average (weighted) manufacturing cost. The formula used to calculate the
 new cost when a production is made is the following:
 
-    New Cost = (Old Cost * Inventory + Production Unit Cost * Production Qty)
-                -------------------------------------------------------------
-                                    New Inventory
+    New Cost = (Old Cost * Inventory + Production Unit Cost * Production Qty) / New Inventory
 
 Contributors
 ------------
